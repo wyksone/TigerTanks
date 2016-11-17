@@ -5,7 +5,7 @@ public class CameraControl : MonoBehaviour
     public float m_DampTime = 0.2f;                 
     public float m_ScreenEdgeBuffer = 4f;           
     public float m_MinSize = 6.5f;                  
-    [HideInInspector] public Transform[] m_Targets; 
+    /*[HideInInspector]*/ public Transform[] m_Targets; 
 
 
     private Camera m_Camera;                        
@@ -42,15 +42,16 @@ public class CameraControl : MonoBehaviour
 
         for (int i = 0; i < m_Targets.Length; i++)
         {
-            if (!m_Targets[i].gameObject.activeSelf)
+			if (!m_Targets[i].gameObject.activeSelf)
                 continue;
 
-            averagePos += m_Targets[i].position;
+			averagePos += m_Targets[i].position;
             numTargets++;
         }
 
-        if (numTargets > 0)
-            averagePos /= numTargets;
+		if (numTargets > 0) {
+			averagePos /= numTargets;
+		}
 
         averagePos.y = transform.position.y;
 
@@ -67,7 +68,7 @@ public class CameraControl : MonoBehaviour
 
     private float FindRequiredSize()
     {
-        Vector3 desiredLocalPos = transform.InverseTransformPoint(m_DesiredPosition);
+		Vector3 desiredLocalPos = transform.InverseTransformPoint(m_DesiredPosition);
 
         float size = 0f;
 
@@ -99,6 +100,6 @@ public class CameraControl : MonoBehaviour
 
         transform.position = m_DesiredPosition;
 
-        m_Camera.orthographicSize = FindRequiredSize();
+        m_Camera.orthographicSize = FindRequiredSize()
     }
 }
